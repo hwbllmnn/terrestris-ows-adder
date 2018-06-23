@@ -20,14 +20,17 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
-from PyQt4.QtGui import QAction, QIcon
+from builtins import str
+from builtins import object
+from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
+from qgis.PyQt.QtWidgets import QAction
+from qgis.PyQt.QtGui import QIcon
 # Initialize Qt resources from file resources.py
-import resources
-from qgis.core import QgsMapLayerRegistry, QgsRasterLayer
+#from . import resources
+from qgis.core import QgsProject, QgsRasterLayer
 import os.path
 
-class TerrestrisOwsAdder:
+class TerrestrisOwsAdder(object):
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
@@ -167,19 +170,19 @@ class TerrestrisOwsAdder:
     def addOsmWms(self):
         crs = self.iface.mapCanvas().mapSettings().destinationCrs().authid()
         layer = QgsRasterLayer('url=http://ows.terrestris.de/osm/service&format=image/png&layers=OSM-WMS&styles=&crs=' + str(crs), 'OSM-WMS', 'wms')
-        QgsMapLayerRegistry.instance().addMapLayer(layer)
+        QgsProject.instance().addMapLayer(layer)
 
     def addOsmWmsGray(self):
         crs = self.iface.mapCanvas().mapSettings().destinationCrs().authid()
         layer = QgsRasterLayer('url=http://ows.terrestris.de/osm-gray/service&format=image/png&layers=OSM-WMS&styles=&crs=' + str(crs), 'OSM-WMS', 'wms')
-        QgsMapLayerRegistry.instance().addMapLayer(layer)
+        QgsProject.instance().addMapLayer(layer)
 
     def addTopoWms(self):
         crs = self.iface.mapCanvas().mapSettings().destinationCrs().authid()
         layer = QgsRasterLayer('url=http://ows.terrestris.de/osm/service&format=image/png&layers=TOPO-WMS&styles=&crs=' + str(crs), 'TOPO-WMS', 'wms')
-        QgsMapLayerRegistry.instance().addMapLayer(layer)
+        QgsProject.instance().addMapLayer(layer)
 
     def addTopoOsmWms(self):
         crs = self.iface.mapCanvas().mapSettings().destinationCrs().authid()
         layer = QgsRasterLayer('url=http://ows.terrestris.de/osm/service&format=image/png&layers=TOPO-OSM-WMS&styles=&crs=' + str(crs), 'TOPO-OSM-WMS', 'wms')
-        QgsMapLayerRegistry.instance().addMapLayer(layer)
+        QgsProject.instance().addMapLayer(layer)
